@@ -1,0 +1,21 @@
+
+X
+java:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8Ã¨Ÿµ2
+E
+java:S1604@"(Make this anonymous inner class a lambda(–¥ôœ8Ã¨Ÿµ2
+J
+java:S1604V"(Make this anonymous inner class a lambda(ºÎîÜşÿÿÿÿ8Ã¨Ÿµ2
+E
+java:S1604k"(Make this anonymous inner class a lambda(ë±ßî8Ã¨Ÿµ2
+E
+java:S1604t"(Make this anonymous inner class a lambda(¢Ô¢8‘Ã¨Ÿµ2
+F
+java:S1604‘"(Make this anonymous inner class a lambda(ÉãÃ®8‘Ã¨Ÿµ2
+L
+java:S1874""/Remove this use of "Handler"; it is deprecated.(²šµ³8¶Ã¨Ÿµ2
+H
+java:S1068""+Remove this unused "handler" private field.(²šµ³8ÎÃ¨Ÿµ2
+V
+java:S1068#"4Remove this unused "leftTurnRunnable" private field.(Á¸Æ¯şÿÿÿÿ8ÎÃ¨Ÿµ2
+R
+java:S1068$"5Remove this unused "rightTurnRunnable" private field.(„©´¥8ÎÃ¨Ÿµ2

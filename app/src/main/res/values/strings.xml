@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ROBOT_WIFI_APP</string>
+    <string name="btnHigh">High</string>
+    <string name="btnLeftText">Left</string>
+    <string name="btnRightText">Right</string>
+    <string name="textDirection">Direction:</string>
+    <string name="btnLowText">Low</string>
+    <string name="btnReverseText">Reverse</string>
+    <string name="ContentDescSlider">Slider</string>
+    <string name="forward">forward</string>
+    />
+</resources>
