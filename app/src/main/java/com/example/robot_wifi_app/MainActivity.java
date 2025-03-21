@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity {
     TextView txtRev;
     private boolean isForward = false;
     private int lastSpeed = 0;
-    private Handler handler = new Handler();
-    private Runnable leftTurnRunnable;
-    private Runnable rightTurnRunnable;
     private long lastSentTime = 0;
     private static final long MIN_INTERVAL_MS = 700;
 
@@ -66,14 +63,12 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        // Użytkownik nacisnął przycisk - wyślij zapytanie o skręt w prawo
                         sendPostRequest("{\"side\": \"left\"}");
                         return true;
 
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        // Użytkownik zwolnił przycisk - zatrzymaj skręt lub przejdź do normalnej jazdy
-                        sendPostRequest("{\"side\": \"normal\"}");  // Można wysłać np. stop, jeśli chcesz zatrzymać skręt
+                        sendPostRequest("{\"side\": \"normal\"}");
                         return true;
 
                     default:
@@ -88,14 +83,12 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        // Użytkownik nacisnął przycisk - wyślij zapytanie o skręt w prawo
                         sendPostRequest("{\"side\": \"right\"}");
                         return true;
 
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        // Użytkownik zwolnił przycisk - zatrzymaj skręt lub przejdź do normalnej jazdy
-                        sendPostRequest("{\"side\": \"normal\"}");  // Można wysłać np. stop, jeśli chcesz zatrzymać skręt
+                        sendPostRequest("{\"side\": \"normal\"}");
                         return true;
 
                     default:
@@ -108,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String direction = isForward ? "forward" : "back";
-                isForward = !isForward; // Zmiana kierunku
+                isForward = !isForward;
                 sendPostRequest("{\"direction\": \"" + direction + "\"}");
             }
         });
@@ -116,30 +109,28 @@ public class MainActivity extends AppCompatActivity {
         slider.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull @NotNull Slider slider, float value, boolean fromUser) {
-                // Wysyłamy dane tylko wtedy, gdy wartość zmieni się o co najmniej 1 jednostkę
                 int speed = (int) value;
                 long currentTime = System.currentTimeMillis();
-                // Wysyłamy dane tylko wtedy, gdy wartość zmieni się o co najmniej 1 jednostkę i minie MIN_INTERVAL_MS
                 if (Math.abs(speed - lastSpeed) > 1 && (currentTime - lastSentTime) > MIN_INTERVAL_MS) {
                     sendPostRequest("{\"speed\": " + speed + "}");
-                    lastSpeed = speed; // Przechowywanie poprzedniej wartości
-                    lastSentTime = currentTime; // Aktualizacja czasu wysłania
+                    lastSpeed = speed;
+                    lastSentTime = currentTime;
                 }
             }
         });
     }
 
     public void sendPostRequest(String json) {
-        Log.d("POST Request", "JSON Sent: " + json); // Logowanie wysyłanego JSON-a
+        Log.d("POST Request", "JSON Sent: " + json);
 
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(json, mediaType);
 
         Request request = new Request.Builder()
-                .url("http://192.48.56.2/data")  // URL Twojego Arduino
-                .post(body)  // Wysłanie danych jako POST
-                .header("Connection", "close")  // Wymuś zamknięcie połączenia
+                .url("http://192.48.56.2/data")
+                .post(body)
+                .header("Connection", "close")
                 .build();
 
         new Thread(new Runnable() {
@@ -153,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                         String responseBody = response.body().string();
                         Log.d("Response Success", "Code: " + response.code() + " | Body: " + responseBody);
 
-                        // Próbujemy wyciągnąć klucz "direction" z odpowiedzi JSON
                         try {
                             JSONObject jsonResponse = new JSONObject(responseBody);
                             if (jsonResponse.has("direction")) {
