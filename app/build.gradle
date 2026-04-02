@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.you_tube_wifi_app'
+    namespace 'com.marcin.robot_wifi_app'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.you_tube_wifi_app"
+        applicationId "com.marcin.you_tube_wifi_app"
         minSdk 24
         targetSdk 33
         versionCode 1
